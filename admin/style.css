@@ -1,0 +1,777 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+    
+    body 
+    {
+        display: flex;
+        min-height: 100vh;
+        background: #0f0f1a;
+        overflow-x: hidden;
+        color: #fff;
+    }
+
+    /* Sidebar */
+   .sidebar 
+   {
+        width: 240px;
+        background: rgba(255,255,255,0.05);
+        backdrop-filter: blur(15px);
+        border-right: 1px solid rgba(255,255,255,0.1);
+        padding: 20px 0;
+        position: fixed;
+        top: 0; left: 0; bottom: 0;
+        display: flex;
+        flex-direction: column;
+        z-index: 1001;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .sidebar a 
+    {
+        padding: 12px 20px;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        transition: 0.3s;
+        gap: 12px;
+        color: #ddd;
+    }
+            
+    .sidebar a:hover 
+    {
+        background: rgba(0,234,255,0.15);
+        padding-left: 28px;
+    }        
+
+    /* Active page link */
+    .sidebar a.active 
+    {
+        background: transparent;   /* no orange background */
+        color: #00eaff;           /* text stays blue */
+        font-weight: bold;
+        box-shadow: none;          /* remove any shadow */
+    }
+
+    .sidebar a.active:hover 
+    {
+        background: rgba(0,234,255,0.1); /* hover effect still works */
+        color: #00eaff;                  /* text stays blue */
+    }
+
+    /* Submenu container */
+    .submenu 
+    {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Submenu items hidden by default */
+    .submenu-items 
+    {
+        display: none;
+        flex-direction: column;
+        margin-left: 30px;
+    }
+
+    /* Show submenu on hover */
+    .submenu:hover .submenu-items 
+    {
+        display: flex;
+    }
+
+    /* Submenu link styling */
+    .submenu-items a 
+    {
+        font-size: 14px;
+        color: #bbb;
+        padding: 8px 15px;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+
+    .submenu-items a:hover 
+    {
+        color: #00eaff;
+        background: rgba(0,234,255,0.1);
+    }
+
+    /* Main content */
+    .main-content 
+    {
+        margin-left: 240px;
+        flex: 1;
+        padding: 20px;
+    }
+
+    h3 i, h4 i,h2 i
+    {
+        margin-right: 8px;   /* space between icon and text */
+        vertical-align: middle; /* keeps icons aligned with text */
+    }
+
+    /* === Global Button Styling === */
+    .btn,
+    input[type="submit"] 
+    {
+        background: linear-gradient(135deg, #00eaff, #0066ff);
+        border: none;
+        color: #fff;
+        padding: 10px 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: 0.3s;
+        margin-top: 10px;
+        display: inline-block;
+    }
+
+    .btn:hover,
+    input[type="submit"]:hover 
+    {
+        box-shadow: 0 0 15px rgba(0,234,255,0.8);
+    }
+
+    /* === Add Student Page Styling === */
+    .add-student 
+    {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;   /* vertical center */
+        align-items: center;       /* horizontal center */
+        min-height: 90vh;         /* full height */
+        margin-left: -50px;        /* keep space for sidebar */
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+    .add-student .add 
+    {
+        text-align: center;
+        margin-top: 25px;
+        margin-bottom: 15px;
+        margin-left: -15px;
+        font-size: 33px;
+        font-weight: 600;
+        color: #00eaff; /* match dashboard highlight */
+    }
+
+    .add-student .form-box 
+    {
+        background: rgba(255,255,255,0.05); /* glassy dark */
+        backdrop-filter: blur(12px);
+        color: #fff;
+        padding: 25px;
+        border-radius: 14px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+        max-width: 500px;
+        margin: 10px auto;
+        border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .add-student .form-box label 
+    {
+        color: #00eaff;
+        font-weight: 600;
+        margin-top: 6px;
+        margin-bottom: 6px;
+    }
+
+    .add-student .form-box input 
+    {
+        width: 100%;
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px solid rgba(255,255,255,0.2);
+        background: rgba(255,255,255,0.05);
+        color: #fff;
+        margin-top: 12px;
+        margin-bottom: 15px;
+        transition: 0.3s;
+    }
+
+    .add-student .form-box input:focus 
+    {
+        outline: none;
+        border-color: #00eaff;
+        box-shadow: 0 0 8px rgba(0,234,255,0.6);
+    }
+
+    .add-student .form-box select 
+    {
+        width: 100%;
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px solid rgba(255,255,255,0.2);
+        background: rgba(255,255,255,0.05);
+        color: #fff;
+        margin-top: 12px;
+        margin-bottom: 15px;
+        transition: 0.3s;
+        font-size: 14px;
+        cursor: pointer;
+    }
+
+    .add-student .form-box select option 
+    {
+        background: #0f0f1a; /* dark dropdown background */
+        color: #fff;
+        /*background-position: left 20px center;*/
+    }
+
+    .add-student .form-box select:focus 
+    {
+        outline: none;
+        border-color: #00eaff;
+        box-shadow: 0 0 8px rgba(0,234,255,0.6);
+    }
+
+    /* Custom Calendar Icon for Date Input */
+    .add-student .form-box .date-picker 
+    {
+        position: relative;
+        width: 100%;
+    }
+
+    .add-student .form-box .date-picker input[type="date"] 
+    {
+        padding-right: 40px; /* space for icon */
+    }
+
+    .add-student .form-box .date-picker input[type="date"]::-webkit-calendar-picker-indicator 
+    {
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        opacity: 0;     /* invisible but still clickable */
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+    }
+
+    .add-student .form-box .date-picker i 
+    {
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #00eaff;
+        pointer-events: none;
+    }
+
+
+    .add-student input[type="submit"],
+    .add-student .form-box .btn 
+    {
+        background: linear-gradient(135deg, #00eaff, #0066ff);
+        border: none;
+        color: #fff;
+        padding: 10px 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: 0.3s;
+        margin-top: 10px;
+    }
+
+    .add-student .form-box .btn:hover 
+    {
+        box-shadow: 0 0 15px rgba(0,234,255,0.8);
+    }
+
+    /* Success & Error messages for Add Student page */
+    .add-student .msg.success 
+    {
+        color: green;
+    }
+
+    .add-student .msg.error 
+    {
+        color: red;
+    }
+
+    /* === Room Management Page Styling === */
+    .room-management 
+    {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 90vh;
+        margin-left: -50px;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+    .room-management .add 
+    {
+        text-align: center;
+        margin-top: 25px;
+        margin-bottom: 25px;
+        font-size: 33px;
+        font-weight: 600;
+        color: #00eaff;
+    }
+
+    .room-management .form-box 
+    {
+        background: rgba(255,255,255,0.05);
+        backdrop-filter: blur(12px);
+        color: #fff;
+        padding: 25px;
+        border-radius: 14px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+        max-width: 500px;
+        margin: 10px auto 30px auto;
+        border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .room-management .form-box label 
+    {
+        color: #00eaff;
+        font-weight: 600;
+        margin-top: 10px;
+        margin-bottom: 15px;
+    }
+
+    .room-management .form-box input 
+    {
+        width: 100%;
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px solid rgba(255,255,255,0.2);
+        background: rgba(255,255,255,0.05);
+        color: #fff;
+        margin-top: 15px;
+        margin-bottom: 10px;
+        transition: 0.3s;
+    }
+
+    .room-management .form-box input:focus 
+    {
+        outline: none;
+        border-color: #00eaff;
+        box-shadow: 0 0 8px rgba(0,234,255,0.6);
+    }
+
+    .room-management .btn,
+    .room-management input[type="submit"] 
+    {
+        background: linear-gradient(135deg, #00eaff, #0066ff);
+        border: none;
+        color: #fff;
+        padding: 10px 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+
+    .room-management .btn:hover,
+    .room-management input[type="submit"]:hover 
+    {
+        box-shadow: 0 0 15px rgba(0,234,255,0.8);
+    }
+
+    /* Status badges */
+    .status.available 
+    {
+        color: lightgreen;
+        font-weight: bold;
+    }
+
+    .status.occupied 
+    {
+        color: #ff4d4d;
+        font-weight: bold;
+    }
+
+    /* Messages */
+    .room-management .msg 
+    {
+        margin-bottom: 15px;
+        font-weight: bold;
+    }
+
+    .room-management .msg.success { color: lightgreen; }
+    .room-management .msg.error { color: #ff4d4d; }
+
+    /* === Manage Announcements Page Styling === */
+    .announcements 
+    {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 20vh;
+        margin-left: -50px;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+    .announcements .add 
+    {
+        text-align: center;
+        margin-left: -20px;
+        margin-top: 20px;
+        margin-bottom: 15px;
+        font-size: 33px;
+        font-weight: 600;
+        color: #00eaff; /* dashboard highlight */
+    }
+
+    /* Form box like Add Student/Rooms */
+    .announcements .form-box 
+    {
+        background: rgba(255,255,255,0.05);
+        backdrop-filter: blur(12px);
+        color: #fff;
+        padding: 25px;
+        border-radius: 14px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+        max-width: 600px;
+        margin: 10px auto 30px auto;
+        border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    /* Form labels */
+    .announcements .form-box label 
+    {
+        color: #00eaff;
+        font-weight: 600;
+        margin-top: 10px;
+        margin-bottom: 8px;
+    }
+
+    /* Inputs & textareas */
+    .announcements .form-box input,
+    .announcements .form-box textarea 
+    {
+        width: 100%;
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px solid rgba(255,255,255,0.2);
+        background: rgba(255,255,255,0.05);
+        color: #fff;
+        margin-top: 13px;
+        margin-bottom: 15px;
+        transition: 0.3s;
+        resize: none;
+    }
+
+    .announcements .form-box input:focus,
+    .announcements .form-box textarea:focus 
+    {
+        outline: none;
+        border-color: #00eaff;
+        box-shadow: 0 0 8px rgba(0,234,255,0.6);
+    }
+
+    /* Buttons */
+    .announcements .form-box .btn 
+    {
+        background: linear-gradient(135deg, #00eaff, #0066ff);
+        border: none;
+        color: #fff;
+        padding: 10px 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: 0.3s;
+        margin-top: 8px;
+    }
+
+    .announcements .form-box .btn:hover 
+    {
+        box-shadow: 0 0 15px rgba(0,234,255,0.8);
+    }
+
+    /* Success & Error messages */
+    .announcements .msg.success { color: lightgreen; font-weight: bold; }
+    .announcements .msg.error { color: #ff4d4d; font-weight: bold; }
+
+    /* === Change Password Page Styling === */
+    .change-password 
+    {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;   /* vertical center */
+        align-items: center;       /* horizontal center */
+        min-height: 90vh;          /* full height */
+        margin-left: -50px;        /* adjust for sidebar */
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+    .change-password .add 
+    {
+        text-align: center;
+        margin-left: -20px;
+        margin-top: 25px;
+        margin-bottom: 25px;
+        font-size: 33px;
+        font-weight: 600;
+        color: #00eaff; /* dashboard theme highlight */
+    }
+
+    .change-password .form-box 
+    {
+        background: rgba(255,255,255,0.05);
+        backdrop-filter: blur(12px);
+        color: #fff;
+        padding: 25px;
+        border-radius: 14px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+        max-width: 500px;
+        margin: 10px auto;
+        border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .change-password .form-box label 
+    {
+        color: #00eaff;
+        font-weight: 600;
+        margin-top: 6px;
+        margin-bottom: 6px;
+    }
+
+    .change-password .form-box input 
+    {
+        width: 100%;
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px solid rgba(255,255,255,0.2);
+        background: rgba(255,255,255,0.05);
+        color: #fff;
+        margin-top: 12px;
+        margin-bottom: 15px;
+        transition: 0.3s;
+    }
+
+    .change-password .form-box input:focus 
+    {
+        outline: none;
+        border-color: #00eaff;
+        box-shadow: 0 0 8px rgba(0,234,255,0.6);
+    }
+
+    .change-password .form-box .btn,
+    .change-password input[type="submit"] 
+    {
+        background: linear-gradient(135deg, #00eaff, #0066ff);
+        border: none;
+        color: #fff;
+        padding: 10px 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: 0.3s;
+        margin-top: 10px;
+    }
+
+    .change-password .form-box .btn:hover,
+    .change-password input[type="submit"]:hover 
+    {
+        box-shadow: 0 0 15px rgba(0,234,255,0.8);
+    }
+
+    /* Success & Error messages */
+    .change-password .msg.success { color: lightgreen; }
+    .change-password .msg.error { color: #ff4d4d; }
+    
+    /* === Fee Records Page Styling === */
+    .fee-records .add 
+    {
+        text-align: center;
+        margin-right: 100px;
+        margin-top: 25px;
+        margin-bottom: 25px;
+        font-size: 33px;
+        font-weight: 600;
+        color: #00eaff; /* match dashboard highlight */
+    }
+    
+    /* === Complaint Status Select Styling === */
+    .fee-records select 
+    {
+        padding: 8px 12px;
+        border-radius: 8px;
+        border: 1px solid rgba(255,255,255,0.2);
+        background: rgba(255,255,255,0.05);
+        color: #fff;
+        font-size: 14px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .fee-records select option 
+    {
+        background: #0f0f1a; /* dropdown background */
+        color: #fff;
+    }
+
+    .fee-records select:focus 
+    {
+        outline: none;
+        border-color: #00eaff;
+        box-shadow: 0 0 8px rgba(0,234,255,0.6);
+    }
+
+    /* Top navbar */
+   .topbar 
+    {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 20px;
+        background: rgba(255,255,255,0.05);
+        backdrop-filter: blur(10px);
+        border-radius: 12px;
+        margin-bottom: 20px;
+    }
+
+    .topbar h2 { font-weight: 600; }
+
+    .logout 
+    {
+        background: linear-gradient(135deg, #ff4d6d, #ff1a40);
+        padding: 8px 16px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        color: #fff;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+
+    .logout:hover { box-shadow: 0 0 15px rgba(255,77,109,0.8); }
+
+    .menu-toggle 
+    {
+        display: none;
+        font-size: 24px;
+        cursor: pointer;
+    }
+
+    /* Cards */
+    .cards 
+    {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+
+    .card 
+    {
+        background: rgba(255,255,255,0.05);
+        backdrop-filter: blur(12px);
+        border-radius: 14px;
+        padding: 20px;
+        border: 1px solid rgba(255,255,255,0.1);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+        transition: 0.3s;
+        text-align: center;
+    }
+
+    .card:hover 
+    {
+        transform: translateY(-5px);
+        box-shadow: 0 0 20px rgba(0,234,255,0.6);
+    }
+
+    .card h4 { margin-bottom: 10px; color: #00eaff;  }
+    .card p { color: #ccc; font-size: 16px; font-weight: 600; }
+
+    /* Table */
+    table 
+    {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background: rgba(255,255,255,0.05);
+        backdrop-filter: blur(12px);
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+    }
+
+    table th, table td 
+    {
+        padding: 12px 15px;
+        text-align: left;
+        font-size: 14px;
+        color: #ddd;
+    }
+
+    table th 
+    {
+        background: rgba(255,255,255,0.08);
+        color: #00eaff;
+        font-weight: 600;
+    }
+           
+    table tr:nth-child(even) { background: rgba(255,255,255,0.03); }
+    table tr:hover { background: rgba(0,234,255,0.08); }
+
+    /* Buttons */
+    a.btn 
+    {
+        display: inline-block;
+        padding: 10px 18px;
+        border-radius: 10px;
+        background: linear-gradient(135deg, #00eaff, #0066ff);
+        color: white;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.3s;
+        margin-top: 10px;
+    }
+
+    /* Table */
+    div.room-management table 
+    {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        margin-left: 50px;
+        background: rgba(255,255,255,0.05);
+        backdrop-filter: blur(12px);
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+        border: 1px solid rgba(255,255,255,0.1); /* outer border */
+    }
+
+    div.room-management table th,
+    div.room-management table td 
+    {
+        padding: 12px 15px;
+        text-align: left;
+        font-size: 14px;
+        color: #ddd;
+        border: 1px solid rgba(255,255,255,0.4); /* thin glowing border */
+    }
+
+    div.room-management table th 
+    {
+        background: rgba(255,255,255,0.08);
+        color: #00eaff;
+        font-weight: 600;
+    }
+
+    div.room-management table tr:nth-child(even) { background: rgba(255,255,255,0.03); }
+    div.room-management table tr:hover { background: rgba(0,234,255,0.08); }
+
+    a.btn:hover { box-shadow: 0 0 15px rgba(0,234,255,0.6); }
+
+    /* Responsive */
+    @media (max-width: 900px) 
+    {
+        .sidebar { transform: translateX(-100%); }
+        .sidebar.active { transform: translateX(0); }
+        .main-content { margin-left: 0; }
+        .menu-toggle { display: block; }
+    }
